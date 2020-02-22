@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Nutava.Test.NumberToWord.Helpers;
@@ -59,6 +59,8 @@ namespace Nutava.Test.NumberToWord.Controllers
                 if (!string.IsNullOrEmpty(decimalInput))
                 {
                     var decimalResult = NumberToWordConvertionHelper.ConvertNumberToWords(decimalInput);
+                    decimalResult = string.IsNullOrEmpty(decimalResult) ? "Zero" : decimalResult;
+                    if(!decimalResult.Equals("Zero"))
                     words.Append(string.Format("{0}{1}{2}", "and ", decimalResult, " cents"));
                 }
                 words.Append(" only.");
