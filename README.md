@@ -1,2 +1,2 @@
 # nutava-technical-test
-nutava-te chnical-test - number to word converter
+nutava-technical-test number to word converter
