@@ -9,14 +9,13 @@ namespace Nutava.Test.NumberToWord.Helpers
         /// Convers input number string to its equivalent english word.
         /// </summary>
         /// <param name="input"></param>
-        /// <returnsequivalent word for the input number</returns>
+        /// <returns>equivalent word for the input number</returns>
         public static string ConvertNumberToWords(string input)
         {
             if (string.IsNullOrEmpty(input))
             {
                 throw new ArgumentNullException(nameof(input));
             }
-
             string result = string.Empty;
             try
             {
@@ -30,8 +29,7 @@ namespace Nutava.Test.NumberToWord.Helpers
 
                     // get unit/place for the number.
                     string unit = $" { DataHelper.DigitsToUnitMap.FirstOrDefault(x => x.Value.Contains(numDigits)).Key} ";
-
-                    //If num of digits is 1, get the words directly from the map.
+                   
                     GetWords(input, ref result, ref exit, numDigits, ref position);
 
                     //Split the number string based on position and recursively get the words for the numbers from the respective maps until exit.
@@ -52,15 +50,24 @@ namespace Nutava.Test.NumberToWord.Helpers
             }
             return result.Trim();
         }
-
+        
+        /// <summary>
+        /// Get words for input number string.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="result"></param>
+        /// <param name="exit"></param>
+        /// <param name="numDigits"></param>
+        /// <param name="position"></param>
         private static void GetWords(string input, ref string result, ref bool exit, int numDigits, ref int position)
         {
+             //If num of digits is 1, get the words directly from the ones map.
             if (numDigits == 1)
             {
                 DataHelper.OnesToWordsMap.TryGetValue(Convert.ToInt32(input), out result);
                 exit = true;
             }
-            // If num of digits is 2, check for double digit map and get the word, if not found splilt the digits and get the values form respective maps.
+            // If num of digits is 2, check for double digit map and get the word, if not found split the digits and get the values form respective maps.
             else if (numDigits == 2)
             {
                 if (!DataHelper.TensToWordsMap.TryGetValue(Convert.ToInt32(input), out result))
